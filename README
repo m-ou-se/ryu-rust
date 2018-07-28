@@ -1,0 +1,5 @@
+This crate brings Ryu (https://github.com/ulfjack/ryu) to Rust.
+
+For now, it simply uses the C implementation, and exposes the functionality in Rust.
+
+In the future, this crate might be replaced by a native Rust implementation.

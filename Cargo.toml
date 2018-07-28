@@ -1,0 +1,12 @@
+[package]
+name = "ryu"
+description = "Fast floating point to decimal string conversion, using the Ryu algorithm."
+version = "0.1.0"
+authors = ["Mara Bos <m-ou.se@m-ou.se>"]
+license = "BSD-2-Clause AND BSL-1.0"
+keywords = ["float", "decimal", "ryu"]
+categories = ["value-formatting"]
+repository = "https://github.com/m-ou-se/ryu-rust"
+
+[build-dependencies]
+cc = "1.0"
