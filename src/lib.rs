@@ -4,6 +4,7 @@ use std::ops::Deref;
 use std::os::raw::{c_char, c_int};
 use std::slice;
 use std::str::from_utf8_unchecked;
+use std::fmt;
 
 extern {
 	fn d2s_buffered_n(_: f64, _: *mut c_char) -> c_int;
@@ -34,8 +35,14 @@ impl Deref for F64String {
 	}
 }
 
-impl std::fmt::Display for F64String {
-	fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+impl fmt::Display for F64String {
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		write!(f, "{}", &**self)
+	}
+}
+
+impl fmt::Debug for F64String {
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
 		write!(f, "{}", &**self)
 	}
 }
@@ -64,8 +71,14 @@ impl Deref for F32String {
 	}
 }
 
-impl std::fmt::Display for F32String {
-	fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+impl fmt::Display for F32String {
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		write!(f, "{}", &**self)
+	}
+}
+
+impl fmt::Debug for F32String {
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
 		write!(f, "{}", &**self)
 	}
 }
@@ -76,6 +89,7 @@ fn d2s_test() {
 	assert_eq!(&*d2s(1.3), "1.3E0");
 	assert_eq!(&*d2s(-1.1234567890123456e-300), "-1.1234567890123456E-300"); // Maximum length output.
 	assert_eq!(format!("{} + {} = {}", d2s(0.1), d2s(0.2), d2s(0.3)), "1E-1 + 2E-1 = 3E-1");
+	assert_eq!(format!("{:?} + {:?} = {:?}", d2s(0.1), d2s(0.2), d2s(0.3)), "1E-1 + 2E-1 = 3E-1");
 }
 
 #[test]
@@ -84,4 +98,5 @@ fn f2s_test() {
 	assert_eq!(&*f2s(1.3), "1.3E0");
 	assert_eq!(&*f2s(-1.00014165e-36), "-1.00014165E-36"); // Maximum length output.
 	assert_eq!(format!("{} + {} = {}", f2s(0.1), f2s(0.2), f2s(0.3)), "1E-1 + 2E-1 = 3E-1");
+	assert_eq!(format!("{:?} + {:?} = {:?}", f2s(0.1), f2s(0.2), f2s(0.3)), "1E-1 + 2E-1 = 3E-1");
 }
