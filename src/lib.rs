@@ -11,10 +11,15 @@ extern {
 	fn f2s_buffered_n(_: f32, _: *mut c_char) -> c_int;
 }
 
+#[doc(hidden)]
 pub struct F64String {
 	buf: [c_char; 24],
 }
 
+/// Convert a 64-bit floating point value to a string.
+///
+/// The resulting object contains the (24-character) buffer containing the decimal representation.
+/// This object is `Deref<Target=str>`, `Display` and `Debug`.
 pub fn d2s(value: f64) -> F64String {
 	unsafe {
 		let mut s = F64String{ buf: uninitialized() };
@@ -47,10 +52,15 @@ impl fmt::Debug for F64String {
 	}
 }
 
+#[doc(hidden)]
 pub struct F32String {
 	buf: [c_char; 15],
 }
 
+/// Convert a 32-bit floating point value to a string.
+///
+/// The resulting object contains the (15-character) buffer containing the decimal representation.
+/// This object is `Deref<Target=str>`, `Display` and `Debug`.
 pub fn f2s(value: f32) -> F32String {
 	unsafe {
 		let mut s = F32String{ buf: uninitialized() };
