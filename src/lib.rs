@@ -74,6 +74,7 @@ impl std::fmt::Display for F32String {
 fn d2s_test() {
 	assert_eq!(&*d2s(0.3), "3E-1");
 	assert_eq!(&*d2s(1.3), "1.3E0");
+	assert_eq!(&*d2s(-1.1234567890123456e-300), "-1.1234567890123456E-300"); // Maximum length output.
 	assert_eq!(format!("{} + {} = {}", d2s(0.1), d2s(0.2), d2s(0.3)), "1E-1 + 2E-1 = 3E-1");
 }
 
@@ -81,5 +82,6 @@ fn d2s_test() {
 fn f2s_test() {
 	assert_eq!(&*f2s(0.3), "3E-1");
 	assert_eq!(&*f2s(1.3), "1.3E0");
+	assert_eq!(&*f2s(-1.00014165e-36), "-1.00014165E-36"); // Maximum length output.
 	assert_eq!(format!("{} + {} = {}", f2s(0.1), f2s(0.2), f2s(0.3)), "1E-1 + 2E-1 = 3E-1");
 }
